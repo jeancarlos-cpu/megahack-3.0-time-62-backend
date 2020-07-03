@@ -1,11 +1,12 @@
 const fs = require('fs');
 const faker = require('faker');
+faker.locale = 'pt_BR';
 
 const customers = [];
 const bars = [];
 const stamps = [];
-let rewards = [];
 const ratings = [];
+let rewards = [];
 
 const customers_rewards = [];
 const customers_stamps = [];
@@ -22,12 +23,15 @@ for (let i = 0; i < 20; i++) {
     phone: faker.phone.phoneNumber(),
     password: faker.internet.password(),
     avatar: faker.internet.avatar(),
-    birthDate: faker.date.past(),
+    birthDate: faker.date.between(
+      new Date(331443048000),
+      new Date(1025667048000),
+    ),
     level: getRandomNumber(1, 20),
   };
 
   bars[i] = {
-    id: i,
+    id: i + 1,
     name: faker.company.companyName(),
     phone: faker.phone.phoneNumber(),
     address: `${faker.address.streetName()}, ${faker.random.number()} - ${faker.address.streetName()}. ${faker.address.city()} / ${faker.address.stateAbbr()}`,
@@ -38,8 +42,8 @@ for (let i = 0; i < 20; i++) {
   };
 
   stamps[i] = {
-    id: i,
-    barId: i,
+    id: i + 1,
+    barId: i + 1,
     name: faker.company.bsAdjective(),
     description: faker.company.catchPhrase(),
     picture: null,
@@ -102,7 +106,7 @@ for (let i = 0; i < 200; i++) {
   };
 
   customers_stamps[i] = {
-    id: i,
+    id: i + 1,
     level: getRandomNumber(1, 20),
     customerId: getRandomNumber(1, 20),
     stampId: getRandomNumber(1, 20),

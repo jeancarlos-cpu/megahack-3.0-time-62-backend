@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "seed": "node seeders.js",
     "start": "json-server db.json --port 4000"
   },
   "keywords": [],
