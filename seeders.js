@@ -1,6 +1,6 @@
-const fs = require('fs');
-const faker = require('faker');
-faker.locale = 'pt_BR';
+const fs = require("fs");
+const faker = require("faker");
+faker.locale = "pt_BR";
 
 const customers = [];
 const bars = [];
@@ -12,10 +12,14 @@ const customers_rewards = [];
 const customers_stamps = [];
 
 function getRandomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function getRandomIntNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 40; i++) {
   customers[i] = {
     id: i + 1,
     name: faker.name.findName(),
@@ -27,18 +31,19 @@ for (let i = 0; i < 20; i++) {
       new Date(331443048000),
       new Date(1025667048000),
     ),
-    level: getRandomNumber(1, 20),
+    level: getRandomIntNumber(1, 20),
   };
 
   bars[i] = {
     id: i + 1,
-    name: faker.company.companyName(),
+    name: `Bar ${faker.company.companyName()}`,
     phone: faker.phone.phoneNumber(),
-    address: `${faker.address.streetName()}, ${faker.random.number()} - ${faker.address.streetName()}. ${faker.address.city()} / ${faker.address.stateAbbr()}`,
-    latitude: faker.address.latitude(),
-    longitute: faker.address.longitude(),
+    address:
+      `${faker.address.streetName()}, ${faker.random.number()} - ${faker.address.streetName()}. ${faker.address.city()} / ${faker.address.stateAbbr()}`,
+    latitude: -getRandomNumber(2, 20),
+    longitute: -getRandomNumber(39, 57),
     cnpj: faker.random.number(),
-    logo: null,
+    logo: faker.image.nightlife(),
   };
 
   stamps[i] = {
@@ -50,15 +55,15 @@ for (let i = 0; i < 20; i++) {
   };
 }
 
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 1200; i++) {
   ratings[i] = {
     id: i + 1,
-    customerId: getRandomNumber(1, 20),
-    barId: getRandomNumber(1, 20),
-    service: getRandomNumber(2, 5),
-    atmosphere: getRandomNumber(2, 5),
-    quality: getRandomNumber(2, 5),
-    price: getRandomNumber(2, 5),
+    customerId: getRandomIntNumber(1, 20),
+    barId: getRandomIntNumber(1, 20),
+    service: getRandomIntNumber(2, 5),
+    atmosphere: getRandomIntNumber(2, 5),
+    quality: getRandomIntNumber(2, 5),
+    price: getRandomIntNumber(2, 5),
     review: faker.lorem.sentence(),
   };
 }
@@ -66,50 +71,50 @@ for (let i = 0; i < 1000; i++) {
 rewards = [
   {
     id: 1,
-    name: 'Open Bar de mesa',
+    name: "Open Bar de mesa",
   },
   {
     id: 2,
-    name: '1 Brahma Lata',
+    name: "1 Brahma Lata",
   },
   {
     id: 3,
-    name: '1 Antarctica Lata',
+    name: "1 Antarctica Lata",
   },
   {
     id: 4,
-    name: '1 Long Neck Stella Artois',
+    name: "1 Long Neck Stella Artois",
   },
   {
     id: 5,
-    name: 'Desconto de 2%',
+    name: "Desconto de 2%",
   },
   {
     id: 6,
-    name: 'Desconto de 3%',
+    name: "Desconto de 3%",
   },
   {
     id: 7,
-    name: 'Desconto de 4%',
+    name: "Desconto de 4%",
   },
   {
     id: 8,
-    name: 'Desconto de 5%',
+    name: "Desconto de 5%",
   },
 ];
 
 for (let i = 0; i < 200; i++) {
   customers_rewards[i] = {
     id: i + 1,
-    customerId: getRandomNumber(1, 20),
-    rewardId: getRandomNumber(1, 8),
+    customerId: getRandomIntNumber(1, 20),
+    rewardId: getRandomIntNumber(1, 8),
   };
 
   customers_stamps[i] = {
     id: i + 1,
-    level: getRandomNumber(1, 20),
-    customerId: getRandomNumber(1, 20),
-    stampId: getRandomNumber(1, 20),
+    level: getRandomIntNumber(1, 20),
+    customerId: getRandomIntNumber(1, 20),
+    stampId: getRandomIntNumber(1, 20),
   };
 }
 
@@ -123,4 +128,4 @@ const data = JSON.stringify({
   customers_stamps,
 });
 
-fs.writeFileSync('db.json', data);
+fs.writeFileSync("db.json", data);
