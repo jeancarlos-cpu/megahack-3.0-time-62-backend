@@ -2,6 +2,10 @@ const fs = require("fs");
 const faker = require("faker");
 faker.locale = "pt_BR";
 
+const CUSTOMER_COUNT = 20;
+const BAR_COUNT = 40;
+const REVIEW_COUNT = 1200;
+
 const customers = [];
 const bars = [];
 const stamps = [];
@@ -19,7 +23,7 @@ function getRandomIntNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-for (let i = 0; i < 40; i++) {
+for (let i = 0; i < CUSTOMER_COUNT; i++) {
   customers[i] = {
     id: i + 1,
     name: faker.name.findName(),
@@ -33,7 +37,9 @@ for (let i = 0; i < 40; i++) {
     ),
     level: getRandomIntNumber(1, 20),
   };
+}
 
+for (let i = 0; i < BAR_COUNT; i++) {
   bars[i] = {
     id: i + 1,
     name: `Bar ${faker.company.companyName()}`,
@@ -55,11 +61,11 @@ for (let i = 0; i < 40; i++) {
   };
 }
 
-for (let i = 0; i < 1200; i++) {
+for (let i = 0; i < REVIEW_COUNT; i++) {
   ratings[i] = {
     id: i + 1,
-    customerId: getRandomIntNumber(1, 20),
-    barId: getRandomIntNumber(1, 20),
+    customerId: getRandomIntNumber(1, CUSTOMER_COUNT),
+    barId: getRandomIntNumber(1, BAR_COUNT),
     service: getRandomIntNumber(2, 5),
     atmosphere: getRandomIntNumber(2, 5),
     quality: getRandomIntNumber(2, 5),
@@ -106,15 +112,15 @@ rewards = [
 for (let i = 0; i < 200; i++) {
   customers_rewards[i] = {
     id: i + 1,
-    customerId: getRandomIntNumber(1, 20),
+    customerId: getRandomIntNumber(1, CUSTOMER_COUNT),
     rewardId: getRandomIntNumber(1, 8),
   };
 
   customers_stamps[i] = {
     id: i + 1,
     level: getRandomIntNumber(1, 20),
-    customerId: getRandomIntNumber(1, 20),
-    stampId: getRandomIntNumber(1, 20),
+    customerId: getRandomIntNumber(1, CUSTOMER_COUNT),
+    stampId: getRandomIntNumber(1, BAR_COUNT),
   };
 }
 
